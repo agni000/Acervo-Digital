@@ -12,8 +12,8 @@ CREATE TABLE PUBLICACAO (
 CREATE TABLE PROJETO_DE_PESQUISA (
 	
 	id_projeto_pesq INTEGER PRIMARY KEY NOT NULL,
-	nome VARCHAR(100) NOT NULL,
-	descricao VARCHAR(500)
+	titulo VARCHAR(100) NOT NULL,
+	descricao VARCHAR(500) NOT NULL
 	
 );
 
@@ -21,11 +21,12 @@ CREATE TABLE PRODUCAO (
 	
 	id_producao INTEGER PRIMARY KEY NOT NULL,
 	id_projeto_pesq INTEGER NOT NULL,
+	titulo VARCHAR(100) NOT NULL,
 	tipo VARCHAR(50) NOT NULL,
 	resumo VARCHAR(1000) NOT NULL,
 	ano INTEGER NOT NULL,
 	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq),
-	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo','Tese'))
+	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo', 'Tese'))
 	
 );
 
@@ -50,17 +51,20 @@ CREATE TABLE REFERENCIA (
 );
 
 CREATE TABLE FINANCIADOR (
+	
 	id_financiador INTEGER PRIMARY KEY NOT NULL, 
-	tipo INTEGER,
-	nome VARCHAR(100)
+	tipo VARCHAR(50) NOT NULL,
+	nome VARCHAR(100) NOT NULL,
+	CHECK (tipo IN ('Público', 'Privado'))
+	
 );
 
 CREATE TABLE FINANCIAMENTO (
 	
 	id_financiador INTEGER NOT NULL,
 	id_projeto_pesq INTEGER NOT NULL, 
-	valor INTEGER, 
-	data_financiamento DATE,
+	valor INTEGER NOT NULL, 
+	data_financiamento DATE NOT NULL,
 	PRIMARY KEY (id_financiador, id_projeto_pesq),
 	FOREIGN KEY (id_financiador) REFERENCES FINANCIADOR (id_financiador),
 	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq)
@@ -70,7 +74,7 @@ CREATE TABLE FINANCIAMENTO (
 CREATE TABLE TEMA (
 	
 	id_tema INTEGER PRIMARY KEY NOT NULL,
-	nome VARCHAR(100)
+	nome VARCHAR(100) NOT NULL
 	
 );
 
@@ -87,11 +91,11 @@ CREATE TABLE PRODUCAO_TEMA (
 CREATE TABLE PALAVRA_CHAVE (
 	
 	id_palavra_chave INTEGER PRIMARY KEY NOT NULL,
-	descricao VARCHAR(50)
+	descricao VARCHAR(50) NOT NULL
 	
 );
 
-CREATE TABLE TEMA_PLVR_CHAVE (
+CREATE TABLE TEMA_PALAVRA_CHAVE (
 	
 	id_tema INTEGER NOT NULL, 
 	id_palavra_chave INTEGER NOT NULL,
@@ -104,9 +108,9 @@ CREATE TABLE TEMA_PLVR_CHAVE (
 CREATE TABLE PESSOA (
 	
 	id_pessoa INTEGER PRIMARY KEY NOT NULL, 
-	nome VARCHAR(100), 
+	nome VARCHAR(100) NOT NULL, 
 	CPF VARCHAR(11) NOT NULL,
-	email VARCHAR(100),
+	email VARCHAR(100) NOT NULL,
 	UNIQUE (email),
     UNIQUE (CPF)
 	
@@ -127,8 +131,8 @@ CREATE TABLE PRODUCAO_PESSOA (
 CREATE TABLE INSTITUICAO (
 	
 	id_instituicao INTEGER PRIMARY KEY NOT NULL,
-	nome VARCHAR(100),
-	endereco VARCHAR(100)
+	nome VARCHAR(100) NOT NULL,
+	endereco VARCHAR(100) NOT NULL
 	
 ); 
 
@@ -136,7 +140,7 @@ CREATE TABLE DEPARTAMENTO (
 	
 	id_departamento INTEGER PRIMARY KEY NOT NULL, 
 	id_instituicao INTEGER NOT NULL,
-	nome VARCHAR(100), 
+	nome VARCHAR(100) NOT NULL, 
 	FOREIGN KEY (id_instituicao) REFERENCES INSTITUICAO (id_instituicao)
 	
 ); 
@@ -145,8 +149,8 @@ CREATE TABLE CURSO (
 	
 	id_curso INTEGER PRIMARY KEY NOT NULL, 
 	id_departamento INTEGER NOT NULL,
-	nome VARCHAR(100), 
-	nivel VARCHAR (30),
+	nome VARCHAR(100) NOT NULL, 
+	nivel VARCHAR (30) NOT NULL,
 	FOREIGN KEY (id_departamento) REFERENCES DEPARTAMENTO (id_departamento),
 	CHECK (nivel IN ('Graduação','Mestrado', 'Doutorado'))
 	
