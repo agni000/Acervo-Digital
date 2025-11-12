@@ -12,7 +12,7 @@ CREATE TABLE PUBLICACAO (
 CREATE TABLE PROJETO_DE_PESQUISA (
 	
 	id_projeto_pesq INTEGER PRIMARY KEY NOT NULL,
-	nome VARCHAR(100),
+	nome VARCHAR(100) NOT NULL,
 	descricao VARCHAR(500)
 	
 );
@@ -25,7 +25,7 @@ CREATE TABLE PRODUCAO (
 	resumo VARCHAR(1000) NOT NULL,
 	ano INTEGER NOT NULL,
 	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq),
-	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo'))
+	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo','Tese'))
 	
 );
 
@@ -120,7 +120,7 @@ CREATE TABLE PRODUCAO_PESSOA (
 	PRIMARY KEY (id_pessoa, id_producao),
 	FOREIGN KEY (id_pessoa) REFERENCES PESSOA (id_pessoa),
 	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao),
-	CHECK (tipo IN ('Professor', 'Aluno', 'Artigo'))
+	CHECK (tipo IN ('Professor', 'Aluno', 'Técnico'))
 	
 ); 
 
