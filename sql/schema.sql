@@ -1,41 +1,52 @@
 CREATE TABLE PUBLICACAO (
+	
 	id_publicacao INTEGER PRIMARY KEY NOT NULL,
 	nome VARCHAR(50) NOT NULL,
 	tipo INTEGER NOT NULL,
 	fator_impacto NUMERIC(5, 3) NOT NULL,
 	ISBN VARCHAR(17) NOT NULL,
 	UNIQUE (ISBN)
+	
 );
 
 CREATE TABLE PROJETO_DE_PESQUISA (
+	
 	id_projeto_pesq INTEGER PRIMARY KEY NOT NULL,
 	nome VARCHAR(100),
 	descricao VARCHAR(500)
+	
 );
 
 CREATE TABLE PRODUCAO (
+	
 	id_producao INTEGER PRIMARY KEY NOT NULL,
 	id_projeto_pesq INTEGER NOT NULL,
-	tipo INTEGER NOT NULL,
-	resumo VARCHAR(1000),
+	tipo VARCHAR(50) NOT NULL,
+	resumo VARCHAR(1000) NOT NULL,
 	ano INTEGER NOT NULL,
-	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq)
+	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq),
+	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo'))
+	
 );
 
 CREATE TABLE PRODUCAO_PUBLICACAO (
+	
 	id_publicacao INTEGER NOT NULL, 
 	id_producao INTEGER NOT NULL,
 	PRIMARY KEY (id_publicacao, id_producao),
 	FOREIGN KEY (id_publicacao) REFERENCES PUBLICACAO (id_publicacao),
 	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao)
+	
 );
 
 CREATE TABLE REFERENCIA (
+	
 	id_producao_referente INTEGER NOT NULL,
 	id_producao_referenciada INTEGER NOT NULL,
 	PRIMARY KEY (id_producao_referente, id_producao_referenciada),
 	FOREIGN KEY (id_producao_referente) REFERENCES PRODUCAO (id_producao),
 	FOREIGN KEY (id_producao_referenciada) REFERENCES PRODUCAO (id_producao)
+	
 );
 
 CREATE TABLE FINANCIADOR (
@@ -45,6 +56,7 @@ CREATE TABLE FINANCIADOR (
 );
 
 CREATE TABLE FINANCIAMENTO (
+	
 	id_financiador INTEGER NOT NULL,
 	id_projeto_pesq INTEGER NOT NULL, 
 	valor INTEGER, 
@@ -52,27 +64,35 @@ CREATE TABLE FINANCIAMENTO (
 	PRIMARY KEY (id_financiador, id_projeto_pesq),
 	FOREIGN KEY (id_financiador) REFERENCES FINANCIADOR (id_financiador),
 	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq)
+	
 );
 
 CREATE TABLE TEMA (
+	
 	id_tema INTEGER PRIMARY KEY NOT NULL,
 	nome VARCHAR(100)
+	
 );
 
 CREATE TABLE PRODUCAO_TEMA (
+	
 	id_tema INTEGER NOT NULL,
 	id_producao INTEGER NOT NULL,
 	PRIMARY KEY (id_tema, id_producao),
 	FOREIGN KEY (id_tema) REFERENCES TEMA (id_tema),
 	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao)
+	
 );
 
 CREATE TABLE PALAVRA_CHAVE (
+	
 	id_palavra_chave INTEGER PRIMARY KEY NOT NULL,
 	descricao VARCHAR(50)
+	
 );
 
 CREATE TABLE TEMA_PLVR_CHAVE (
+	
 	id_tema INTEGER NOT NULL, 
 	id_palavra_chave INTEGER NOT NULL,
 	PRIMARY KEY (id_tema, id_palavra_chave), 
@@ -82,49 +102,63 @@ CREATE TABLE TEMA_PLVR_CHAVE (
 
 
 CREATE TABLE PESSOA (
+	
 	id_pessoa INTEGER PRIMARY KEY NOT NULL, 
 	nome VARCHAR(100), 
-	CPF VARCHAR(11),
+	CPF VARCHAR(11) NOT NULL,
 	email VARCHAR(100),
 	UNIQUE (email),
     UNIQUE (CPF)
+	
 );
 
 CREATE TABLE PRODUCAO_PESSOA (
+	
 	id_pessoa INTEGER NOT NULL,
 	id_producao INTEGER NOT NULL,
+	tipo VARCHAR(50) NOT NULL,
 	PRIMARY KEY (id_pessoa, id_producao),
 	FOREIGN KEY (id_pessoa) REFERENCES PESSOA (id_pessoa),
-	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao)
+	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao),
+	CHECK (tipo IN ('Professor', 'Aluno', 'Artigo'))
+	
 ); 
 
 CREATE TABLE INSTITUICAO (
+	
 	id_instituicao INTEGER PRIMARY KEY NOT NULL,
 	nome VARCHAR(100),
 	endereco VARCHAR(100)
+	
 ); 
 
 CREATE TABLE DEPARTAMENTO (
+	
 	id_departamento INTEGER PRIMARY KEY NOT NULL, 
 	id_instituicao INTEGER NOT NULL,
 	nome VARCHAR(100), 
 	FOREIGN KEY (id_instituicao) REFERENCES INSTITUICAO (id_instituicao)
+	
 ); 
 
 CREATE TABLE CURSO (
+	
 	id_curso INTEGER PRIMARY KEY NOT NULL, 
 	id_departamento INTEGER NOT NULL,
 	nome VARCHAR(100), 
 	nivel VARCHAR (30),
 	FOREIGN KEY (id_departamento) REFERENCES DEPARTAMENTO (id_departamento),
-	CHECK (nivel in ('Graduação','Mestrado', 'Doutorado'))
+	CHECK (nivel IN ('Graduação','Mestrado', 'Doutorado'))
+	
 );
 
 CREATE TABLE PESSOA_CURSO (
+	
 	id_pessoa INTEGER NOT NULL,
 	id_curso INTEGER NOT NULL,
 	PRIMARY KEY (id_pessoa, id_curso),
 	FOREIGN KEY (id_pessoa) REFERENCES PESSOA (id_pessoa),
 	FOREIGN KEY (id_curso) REFERENCES CURSO (id_curso)
+	
 ); 
 
