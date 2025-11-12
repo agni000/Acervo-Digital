@@ -25,6 +25,7 @@ CREATE TABLE PRODUCAO (
 	tipo VARCHAR(50) NOT NULL,
 	resumo VARCHAR(1000) NOT NULL,
 	ano INTEGER NOT NULL,
+	arquivo BYTEA,
 	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq),
 	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo', 'Tese'))
 	
