@@ -41,8 +41,7 @@ def menu():
     print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Deletar Tabelas (Pronto) \n5. Consultar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n11. Deleção Total \n0. Sair")
     opcao = int(input("Opção: "))
     while (opcao > 11 or opcao < 0):
-            print("Selecione uma opção válida: ")
-            opcao = int(input())
+            opcao = int(input("Selecione uma opção válida: "))
     return opcao
 
 def criarTabelas(connect):
@@ -73,7 +72,6 @@ def criarTabelas(connect):
     finally:
         cursor.close()
         connect.close()
-        
 
 def main():
     conn = connectionSQL()
@@ -111,6 +109,7 @@ def main():
                 if conn.closed == 0:
                     print("Conexão encerrada.")
                     conn.close()
+                    
 if __name__ == "__main__":
     main()
     
