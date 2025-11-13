@@ -1,48 +1,70 @@
 # Importação de bibliotecas
-import mysql.connector
-from mysql.connector import errorcode
-from datetime import date, datetime
+import psycopg2
+from psycopg2 import errors
 import pandas as pd
+from schema import tabelas
 
 # Estabelece a conexão com o banco de dados
-
 def connectionSQL():
-
     try:
-        conn = mysql.connector.connect(user = 'root', password = 'master',
-                                host = 'localhost',
-                                database = 'acervo',
-                                autocommit = False)
-        print("Conexão com o banco de dados estabelecida.")
-        return conn
-    except mysql.connector.Error as error:
-        print("Não foi possível realizar a conexão com o banco de dados {}.".format(error))
-        quit()
+        cnx = psycopg2.connect(
+            host='localhost',
+            port='5432',
+            database='temQueMudar',
+            user='postgres',
+            password='ehne'
+        )
+        print("Conexão com o PostgreSQL estabelecida com sucesso.")
+
+        cursor = cnx.cursor()
+
+        # Recuperar a versão do servidor PostgreSQL
+        cursor.execute("SELECT version();")
+        db_info = cursor.fetchone()
+        print("Versão do servidor PostgreSQL:", db_info[0])
+
+        # Verificar o banco de dados atual
+        cursor.execute("SELECT current_database();")
+        linha = cursor.fetchone()
+        print("Conectado ao banco de dados:", linha[0])
+
+        cursor.close()
+        return cnx
+    
+    except psycopg2.Error as e:
+        print("Erro ao conectar ao PostgreSQL:", e)
+        return None
 
 def menu():
 
     print("-----------------------\n Menu (Acervo Digital) \n-----------------------")
     print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Deletar Tabelas (Pronto) \n5. Consultar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n11. Deleção Total \n0. Sair")
     opcao = int(input("Opção: "))
+    while (opcao > 11 or opcao < 0):
+            print("Selecione uma opção válida: ")
+            opcao = int(input())
     return opcao
 
-def criarTabelas():
-
-    txt = "inserirTabelas.txt"
-
-    try:
-        with open(txt, "r") as file:
-            content = file.read()
-            print(content)
-    except FileNotFoundError:
-        print(f"Erro: O arquivo '{txt}' não foi encontrado.")
-    except Exception as e:
-        print(f"Um erro ocorreu: {e}")
+# Criação do esquema do banco 
+def criarTabelas(connect):
+    cursor = connect.cursor()
+    for nomeTabela in tabelas:
+        criarTabela = tabelas[nomeTabela]
+        try:
+            print("Criando tabela {}: ".format(nomeTabela), end='')
+            cursor.execute(criarTabela)   
+        except errors.DuplicateTable:
+            print("A tabela já existe. Ignorando a criação.")
+        except psycopg2.Error as e:
+            print(e)
+        else:
+            print("OK")
+    connect.commit()
+    cursor.close()         
+        
 
 def main():
-
     conn = connectionSQL()
-
     opcao = 1
 
     while (opcao != 0):
@@ -52,7 +74,7 @@ def main():
         match opcao:
 
             case 1:
-                criarTabelas()
+                criarTabelas(conn)
             case 2:
                 break
             case 3:
@@ -74,10 +96,9 @@ def main():
             case 11:
                 break
             case 0:
-                if conn.is_connected():
+                if conn.closed == 0:
                     print("Conexão encerrada.")
                     conn.close()
-
 if __name__ == "__main__":
     main()
     
