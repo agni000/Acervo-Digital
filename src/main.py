@@ -10,9 +10,9 @@ def connectionSQL():
         cnx = psycopg2.connect(
             host='localhost',
             port='5432',
-            database='testesDB',
+            database='temQueMudar',
             user='postgres',
-            password='ehne'
+            password='********'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
