@@ -2,7 +2,7 @@
 import psycopg2
 from psycopg2 import errors
 import pandas as pd
-from schema import tabelas
+from pathlib import Path
 
 # Estabelece a conexão com o banco de dados
 def connectionSQL():
@@ -10,9 +10,9 @@ def connectionSQL():
         cnx = psycopg2.connect(
             host='localhost',
             port='5432',
-            database='temQueMudar',
+            database='testesDB',
             user='postgres',
-            password='ehne'
+            password='Eduardo246810'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
@@ -45,22 +45,34 @@ def menu():
             opcao = int(input())
     return opcao
 
-# Criação do esquema do banco 
 def criarTabelas(connect):
-    cursor = connect.cursor()
-    for nomeTabela in tabelas:
-        criarTabela = tabelas[nomeTabela]
-        try:
-            print("Criando tabela {}: ".format(nomeTabela), end='')
-            cursor.execute(criarTabela)   
-        except errors.DuplicateTable:
-            print("A tabela já existe. Ignorando a criação.")
-        except psycopg2.Error as e:
-            print(e)
-        else:
-            print("OK")
-    connect.commit()
-    cursor.close()         
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
+
+    # Lê o script SQL completo
+    with open(sqlCaminho, 'r', encoding='utf-8') as f:
+        sql_script = f.read()
+
+    try:
+        cursor = connect.cursor()
+
+        for statement in sql_script.split(';'):
+            stmt = statement.strip()
+            if stmt:
+                cursor.execute(stmt + ';') 
+        connect.commit()
+        print("Script executado com sucesso!")
+
+    except psycopg2.Error as e:
+        connect.rollback()
+        print("-------------------------------------------")
+        print("ERRO AO EXECUTAR O SCRIPT!")
+        print("O banco de dados fez um ROLLBACK automático.")
+        print(f"Mensagem do PostgreSQL: {e.pgerror}")
+        print("-------------------------------------------")
+
+    finally:
+        cursor.close()
+        connect.close()
         
 
 def main():
