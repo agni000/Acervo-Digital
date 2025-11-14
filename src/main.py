@@ -3,16 +3,17 @@ import psycopg2
 from psycopg2 import errors
 import pandas as pd
 from pathlib import Path
+import sqlparse
 
-# Estabelece a conexão com o banco de dados
+# Estabelece a conexão com o banco de dados.
 def connectionSQL():
     try:
         cnx = psycopg2.connect(
             host='localhost',
             port='5432',
-            database='temQueMudar',
+            database='testesDB',
             user='postgres',
-            password='********'
+            password='aquiacabou'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
@@ -35,32 +36,27 @@ def connectionSQL():
         print("Erro ao conectar ao PostgreSQL:", e)
         return None
 
+# Implementação do menu. 
 def menu():
 
     print("-----------------------\n Menu (Acervo Digital) \n-----------------------")
-    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Deletar Tabelas (Pronto) \n5. Consultar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n11. Deleção Total \n0. Sair")
+    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Deletar Tabelas (Pronto) \n5. Consultar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n0. Sair")
     opcao = int(input("Opção: "))
     while (opcao > 11 or opcao < 0):
             opcao = int(input("Selecione uma opção válida: "))
     return opcao
 
-def criarTabelas(connect):
-    sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
-
+# Executa o comando conforme o caminho do arquivo sql.
+def executarSQL(connect, sqlCaminho):
     # Lê o script SQL completo
-    with open(sqlCaminho, 'r', encoding='utf-8') as f:
-        sql_script = f.read()
-
+    sql = Path(sqlCaminho).read_text(encoding="utf-8")
+    
     try:
         cursor = connect.cursor()
-
-        for statement in sql_script.split(';'):
-            stmt = statement.strip()
-            if stmt:
-                cursor.execute(stmt + ';') 
+        for stmt in sqlparse.split(sql):
+            if stmt.strip():
+                cursor.execute(stmt)
         connect.commit()
-        print("Script executado com sucesso!")
-
     except psycopg2.Error as e:
         connect.rollback()
         print("-------------------------------------------")
@@ -68,10 +64,25 @@ def criarTabelas(connect):
         print("O banco de dados fez um ROLLBACK automático.")
         print(f"Mensagem do PostgreSQL: {e.pgerror}")
         print("-------------------------------------------")
-
+        # raise faz com que a função que chamou executarSQL também receba a exceção e não continue a execução normalmente.
+        raise 
     finally:
         cursor.close()
-        connect.close()
+    
+
+# Carrega o esquema completo no banco. 
+def criarTabelas(connect):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
+    executarSQL(connect, sqlCaminho)
+    print("Esquema carregado com sucesso!")
+
+
+# Deleta todas as tabelas do banco.
+def dropCascade(connect):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "dropCascade.sql"
+    executarSQL(connect, sqlCaminho)
+    print("Esquema deletado com sucesso!")
+    
 
 def main():
     conn = connectionSQL()
@@ -90,7 +101,7 @@ def main():
             case 3:
                 break
             case 4:
-                break
+                dropCascade(conn)
             case 5:
                 break
             case 6:
