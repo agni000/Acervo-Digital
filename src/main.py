@@ -93,17 +93,17 @@ def criarTabelas(connect):
     executarSQL(connect, sqlCaminho)
     print("Esquema criado com sucesso!\n")
 
-# Deleta todas as tabelas do banco.
-def dropCascade(connect):
-    sqlCaminho = Path(__file__).parent.parent / "sql" / "dropCascade.sql"
-    executarSQL(connect, sqlCaminho)
-    print("Esquema deletado com sucesso!\n")
-
 # Carrega as tabelas com valores pré-definidos
 def carregarTabelas(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "insert.sql"
     executarSQL(connect, sqlCaminho)
     print("Valores carregados no banco!\n")
+
+# Carrega as tabelas com valores pré-definidos
+def atualizarTabelas(connect):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "update.sql"
+    executarSQL(connect, sqlCaminho)
+    print("Valores atualizados no banco!\n")
 
 # Realiza consulta pré-definida. 
 def consultarTabelas(connect):
@@ -113,6 +113,12 @@ def consultarTabelas(connect):
     # Imprime cada linha da consulta
     for linha in resultado:
         print(linha)
+        
+# Deleta todas as tabelas do banco.
+def deletarTabelas(connect):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "dropCascade.sql"
+    executarSQL(connect, sqlCaminho)
+    print("Esquema deletado com sucesso!\n")
 
 def main():
     conn = connectionSQL()
@@ -129,11 +135,11 @@ def main():
             case 2:
                 carregarTabelas(conn)
             case 3:
-                break
+                atualizarTabelas(conn)
             case 4:
                 consultarTabelas(conn)
             case 5:
-                dropCascade(conn)
+                deletarTabelas(conn)
             case 6:
                 break
             case 7:
