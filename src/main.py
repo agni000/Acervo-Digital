@@ -14,7 +14,7 @@ def connectionSQL():
             port='5432',
             database='testesDB',
             user='postgres',
-            password='********'
+            password='***********'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
@@ -123,7 +123,7 @@ def deletarTabelas(connect):
 def executarPipeline(connect, descricao):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
     schema = Path(sqlCaminho).read_text(encoding="utf-8")
-
+    
     # Instancia a pipeline e executa
     pipeline = TextToSQLPipeline(connect)
     result_df = pipeline.run(descricao, schema)
@@ -131,7 +131,6 @@ def executarPipeline(connect, descricao):
     # Mostra os resultados
     print("\nResultado da consulta:")
     print(result_df)
-
 
 def main():
     conn = connectionSQL()

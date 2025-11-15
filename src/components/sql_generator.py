@@ -38,15 +38,30 @@ class SQLGenerator:
         )
         return response.text.strip()
 
-    def generate(self, question: str, schema_description: str) -> str:
-        prompt = f'''Considering the database schema {schema_description}, 
-            write an SQL query to answer the query: "{question}". 
-            The generated queries must attribute an alias for 
-            each column when is not used the column name. 
-            In the answer, present only the SQL query without any formatting or line breaks as a string, 
-            without the ";" character at the end and without the "\" character'''
+    def generate(self, question: str, schema_description: dict) -> str:
+        schema_text = schema_description["schema"]
+        db_state_text = schema_description["state"]
 
-        print(self.model_type)
+        prompt = f'''
+            You are a Text-to-SQL generator. 
+            Here is the schema:
+            {schema_text}
+
+            Here is the CURRENT DATABASE STATE (important! do not violate constraints):
+            {db_state_text}
+
+            Now write SQL to answer:
+            "{question}"
+
+            Rules:
+            - Return ONLY a valid SQL string.
+            - DO NOT repeat primary keys.
+            - DO NOT repeat UNIQUE values.
+            - If generating INSERT statements, ensure all constraints are respected.
+            - No formatting, no markdown.
+            - No trailing semicolon.
+        '''
+
         if (self.model_type == "gpt"):
             response = self.generate_gpt(prompt)
         else:
