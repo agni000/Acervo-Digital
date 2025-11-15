@@ -40,7 +40,7 @@ def connectionSQL():
 # Implementação do menu. 
 def menu():
     print("-----------------------\n Menu (Acervo Digital) \n-----------------------")
-    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Consultar Tabelas (Pronto) \n5. Deletar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n0. Sair")
+    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Consultar Tabelas (Pronto) \n5. Deletar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n11. Consulta em Linguagem Natural \n0. Sair")
     opcao = int(input("Opção: "))
     while (opcao > 11 or opcao < 0):
             opcao = int(input("Selecione uma opção válida: "))
