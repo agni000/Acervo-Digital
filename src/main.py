@@ -13,7 +13,7 @@ def connectionSQL():
             port='5432',
             database='testesDB',
             user='postgres',
-            password='aquiacabou'
+            password='*******'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
@@ -46,7 +46,7 @@ def menu():
             opcao = int(input("Selecione uma opção válida: "))
     return opcao
 
-# Executa o comando conforme o caminho do arquivo sql.
+# Executa o comando(DDL) conforme o caminho do arquivo sql.
 def executarSQL(connect, sqlCaminho):
     # Lê o script SQL completo
     sql = Path(sqlCaminho).read_text(encoding="utf-8")
@@ -68,20 +68,51 @@ def executarSQL(connect, sqlCaminho):
         raise 
     finally:
         cursor.close()
-    
 
+# Executa manipulações(DML) conforme o caminho do arquivo sql.
+def consultarSQL(connect, sqlCaminho):
+    sql = Path(sqlCaminho).read_text(encoding="utf-8")
+    
+    try:
+        cursor = connect.cursor()
+        cursor.execute(sql)
+        resultado = cursor.fetchall()
+        return resultado
+    
+    except psycopg2.Error as e:
+        print("Erro ao executar SELECT!")
+        print(e.pgerror)
+        raise
+    
+    finally:
+        cursor.close()
+    
 # Carrega o esquema completo no banco. 
 def criarTabelas(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
     executarSQL(connect, sqlCaminho)
-    print("Esquema carregado com sucesso!")
-
+    print("Esquema criado com sucesso!\n")
 
 # Deleta todas as tabelas do banco.
 def dropCascade(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "dropCascade.sql"
     executarSQL(connect, sqlCaminho)
-    print("Esquema deletado com sucesso!")
+    print("Esquema deletado com sucesso!\n")
+
+# Carrega as tabelas com valores pré-definidos
+def carregarTabelas(connect):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "insert.sql"
+    executarSQL(connect, sqlCaminho)
+    print("Valores carregados no banco!\n")
+
+# Realiza consulta pré-definida. 
+def consultarTabelas(connect):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "queries.sql"
+    resultado = consultarSQL(connect, sqlCaminho)
+
+    # Imprime cada linha da consulta
+    for linha in resultado:
+        print(linha)
     
 
 def main():
@@ -97,13 +128,13 @@ def main():
             case 1:
                 criarTabelas(conn)
             case 2:
-                break
+                carregarTabelas(conn)
             case 3:
                 break
             case 4:
                 dropCascade(conn)
             case 5:
-                break
+                consultarTabelas(conn)
             case 6:
                 break
             case 7:
