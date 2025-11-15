@@ -40,7 +40,7 @@ def connectionSQL():
 def menu():
 
     print("-----------------------\n Menu (Acervo Digital) \n-----------------------")
-    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Deletar Tabelas (Pronto) \n5. Consultar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n0. Sair")
+    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Consultar Tabelas (Pronto) \n5. Deletar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n0. Sair")
     opcao = int(input("Opção: "))
     while (opcao > 11 or opcao < 0):
             opcao = int(input("Selecione uma opção válida: "))
@@ -113,7 +113,6 @@ def consultarTabelas(connect):
     # Imprime cada linha da consulta
     for linha in resultado:
         print(linha)
-    
 
 def main():
     conn = connectionSQL()
@@ -132,9 +131,9 @@ def main():
             case 3:
                 break
             case 4:
-                dropCascade(conn)
-            case 5:
                 consultarTabelas(conn)
+            case 5:
+                dropCascade(conn)
             case 6:
                 break
             case 7:
