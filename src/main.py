@@ -162,10 +162,10 @@ def main():
             case 9:
                 break
             case 10:
-                consulta = input("Digite a consulta: ")
-                executarPipeline(conn, consulta)
-            case 11:
                 break
+            case 11:
+                consulta = input("Digite a consulta em linguagem natural: ")
+                executarPipeline(conn, consulta)
             case 0:
                 if conn.closed == 0:
                     print("Conexão encerrada.")
