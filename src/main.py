@@ -99,7 +99,7 @@ def carregarTabelas(connect):
     executarSQL(connect, sqlCaminho)
     print("Valores carregados no banco!\n")
 
-# Carrega as tabelas com valores pré-definidos
+# Atualiza algumas tabelas com valores pré-definidos
 def atualizarTabelas(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "update.sql"
     executarSQL(connect, sqlCaminho)
