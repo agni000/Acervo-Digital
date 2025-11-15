@@ -4,6 +4,7 @@ from psycopg2 import errors
 import pandas as pd
 from pathlib import Path
 import sqlparse
+from components.text_to_sql_pipeline import TextToSQLPipeline
 
 # Estabelece a conexão com o banco de dados.
 def connectionSQL():
@@ -13,7 +14,7 @@ def connectionSQL():
             port='5432',
             database='testesDB',
             user='postgres',
-            password='*******'
+            password='********'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
@@ -38,7 +39,6 @@ def connectionSQL():
 
 # Implementação do menu. 
 def menu():
-
     print("-----------------------\n Menu (Acervo Digital) \n-----------------------")
     print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Consultar Tabelas (Pronto) \n5. Deletar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta \n0. Sair")
     opcao = int(input("Opção: "))
@@ -120,6 +120,19 @@ def deletarTabelas(connect):
     executarSQL(connect, sqlCaminho)
     print("Esquema deletado com sucesso!\n")
 
+def executarPipeline(connect, descricao):
+    sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
+    schema = Path(sqlCaminho).read_text(encoding="utf-8")
+
+    # Instancia a pipeline e executa
+    pipeline = TextToSQLPipeline(connect)
+    result_df = pipeline.run(descricao, schema)
+
+    # Mostra os resultados
+    print("\nResultado da consulta:")
+    print(result_df)
+
+
 def main():
     conn = connectionSQL()
     opcao = 1
@@ -149,7 +162,8 @@ def main():
             case 9:
                 break
             case 10:
-                break
+                consulta = input("Digite a consulta: ")
+                executarPipeline(conn, consulta)
             case 11:
                 break
             case 0:
