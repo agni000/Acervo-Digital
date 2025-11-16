@@ -14,7 +14,7 @@ def connectionSQL():
             port='5432',
             database='testesDB',
             user='postgres',
-            password='*********'
+            password='teste123'
         )
         print("Conexão com o PostgreSQL estabelecida com sucesso.")
 
