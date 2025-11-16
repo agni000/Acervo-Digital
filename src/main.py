@@ -174,8 +174,7 @@ def atualizar(connect):
             
     atb = input("Digite o atributo a ser alterado: ")
     valor = input("Digite o valor a ser atribuído: ")
-    if isinstance(valor, str): # Testa se é string
-        valor = f"'{valor}'"
+    valor = f"'{valor}'"
     col = input("Digite o nome da coluna da chave primária: ")
     id = input("Digite o valor numérico do campo da chave primária: ")
     query = ['UPDATE ', tableName, ' SET ', atb, ' = ', valor, ' WHERE ', col, ' = ', id]
