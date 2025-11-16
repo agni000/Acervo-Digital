@@ -43,7 +43,7 @@ class TextToSQLPipeline:
 
         except Exception as e:
                 self.db_executor.rollback()
-        return pd.DataFrame({"error": [str(e)]})
+                return pd.DataFrame({"error": [str(e)]})
 
     # def run(self, question: str, schema_description: str) -> pd.DataFrame:
     #     parsed_question = self.parser.parse(question)
