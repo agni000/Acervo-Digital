@@ -23,17 +23,21 @@ INSERT INTO PRODUCAO (id_producao, id_projeto_pesq, titulo, tipo, resumo, ano, a
 (3, 2, 'Análise de desempenho de gateways LoRa', 'Artigo', 'Comparação entre diferentes gateways LoRaWAN em ambientes reais.', 2024, NULL),
 (4, 3, 'Modelagem diferencial do movimento humano', 'Tese', 'Tese sobre equações diferenciais aplicadas à biomecânica.', 2023, NULL),
 (5, 2, 'Dissertação - Otimização de rotas LoRaWAN', 'Dissertação', 'Aborda algoritmos para melhorar a transmissão em redes LoRa.', 2021, NULL),
-(6, 1, 'Título 1', 'TCC', 'Resumo 1', 2025, pg_read_binary_file('pdf/TCC.pdf')),
-(7, 2, 'Dissertação - Otimização de rotas LoRaWAN', 'Dissertação', 'Aborda algoritmos para melhorar a transmissão em redes LoRa.', 2021, NULL),
-(8, 1, 'Classificação Avançada de padrões respiratórios usando CNNs', 'Artigo', 'Apresenta uma CNN capaz de diferenciar padrões respiratórios em sinais biomédicos.', 2024, NULL),
-(9, 5, 'Redes neurais compactas para classificação em tempo real', 'Artigo', 'Propõe arquiteturas compactas adequadas para execução em microcontroladores.', 2024, NULL),
-(10, 6, 'Detecção de anomalias em LoRaWAN usando autoencoders', 'Artigo', 'Autoencoders para identificar padrões de tráfego anômalo em gateways LoRa.', 2025, NULL),
-(11, 7, 'Transfer Learning aplicado ao reconhecimento de marcha', 'Dissertação', 'Avalia estratégias de fine-tuning para datasets pequenos em biomecânica.', 2023, NULL),
-(12, 8, 'Plataforma de telemetria com análise preditiva para bovinos', 'TCC', 'Implementação de uma solução completa com captura, transmissão e dashboard.', 2025, NULL),
-(13, 1, 'Aprimoramento de CNNs para sinais respiratórios', 'Artigo', 'Melhorias arquiteturais e técnicas de augmentação para sinais respiratórios.', 2024, NULL),
-(14, 2, 'Estudo sobre Latência em Gateways LoRa Comerciais', 'Artigo', 'Medições de latência e perda de pacotes em diferentes modelos de gateway.', 2023, NULL),
-(15, 5, 'Quantização e pruning para microcontroladores', 'Artigo', 'Comparativo de técnicas de compressão de modelos para execução em MCU.', 2025, NULL),
-(16, 4, 'Integração de RFID e IoT para Monitoramento de Ativos', 'Artigo', 'Proposta e avaliação de um sistema híbrido RFID-LoRa para rastreio em fazendas.', 2022, NULL);
+(6, 2, 'Dissertação - Otimização de rotas LoRaWAN', 'Dissertação', 'Aborda algoritmos para melhorar a transmissão em redes LoRa.', 2021, NULL),
+(7, 1, 'Classificação Avançada de padrões respiratórios usando CNNs', 'Artigo', 'Apresenta uma CNN capaz de diferenciar padrões respiratórios em sinais biomédicos.', 2024, NULL),
+(8, 5, 'Redes neurais compactas para classificação em tempo real', 'Artigo', 'Propõe arquiteturas compactas adequadas para execução em microcontroladores.', 2024, NULL),
+(9, 6, 'Detecção de anomalias em LoRaWAN usando autoencoders', 'Artigo', 'Autoencoders para identificar padrões de tráfego anômalo em gateways LoRa.', 2025, NULL),
+(10, 7, 'Transfer Learning aplicado ao reconhecimento de marcha', 'Dissertação', 'Avalia estratégias de fine-tuning para datasets pequenos em biomecânica.', 2023, NULL),
+(11, 8, 'Plataforma de telemetria com análise preditiva para bovinos', 'TCC', 'Implementação de uma solução completa com captura, transmissão e dashboard.', 2025, NULL),
+(12, 1, 'Aprimoramento de CNNs para sinais respiratórios', 'Artigo', 'Melhorias arquiteturais e técnicas de augmentação para sinais respiratórios.', 2024, NULL),
+(13, 2, 'Estudo sobre Latência em Gateways LoRa Comerciais', 'Artigo', 'Medições de latência e perda de pacotes em diferentes modelos de gateway.', 2023, NULL),
+(14, 5, 'Quantização e pruning para microcontroladores', 'Artigo', 'Comparativo de técnicas de compressão de modelos para execução em MCU.', 2025, NULL),
+(15, 4, 'Integração de RFID e IoT para Monitoramento de Ativos', 'Artigo', 'Proposta e avaliação de um sistema híbrido RFID-LoRa para rastreio em fazendas.', 2022, NULL),
+(16, 1, 'Título 1', 'TCC', 'Resumo 1', 2025, pg_read_binary_file('pdf/TCC1.pdf')),
+(17, 1, 'Título 2', 'TCC', 'Resumo 2', 2025, pg_read_binary_file('pdf/TCC2.pdf')),
+(18, 1, 'Título 3', 'TCC', 'Resumo 3', 2024, pg_read_binary_file('pdf/TCC3.pdf')),
+(19, 1, 'Título 4', 'Tese', 'Resumo 4', 2025, pg_read_binary_file('pdf/TESE.pdf')),
+(20, 1, 'Título 5', 'Dissertação', 'Resumo 5', 2025, pg_read_binary_file('pdf/DISSERTACAO.pdf'));
 
 INSERT INTO PRODUCAO_EDITORA (id_editora, id_producao) VALUES
 (1, 1), (3, 2), (2, 3), (1, 4), (2, 5), (4, 6), (3, 7), (1, 8), (5, 9), (5, 15), (6, 10), (1, 11), (4, 12), (2, 13), (3, 14), (4, 16);
