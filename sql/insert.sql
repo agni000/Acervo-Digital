@@ -13,8 +13,8 @@ INSERT INTO PRODUCAO (id_producao, id_projeto_pesq, titulo, tipo, resumo, ano, a
 (2, 1, 'TCC - Sistema embarcado para análise de ar', 'TCC', 'Trabalho de conclusão envolvendo microcontroladores e sensores de ar.', 2022, NULL),
 (3, 2, 'Análise de desempenho de gateways LoRa', 'Artigo', 'Comparação entre diferentes gateways LoRaWAN em ambientes reais.', 2024, NULL),
 (4, 3, 'Modelagem diferencial do movimento humano', 'Tese', 'Tese sobre equações diferenciais aplicadas à biomecânica.', 2023, NULL),
-(5, 2, 'Dissertação - Otimização de rotas LoRaWAN', 'Dissertação', 'Aborda algoritmos para melhorar a transmissão em redes LoRa.', 2021, NULL);
-
+(5, 2, 'Dissertação - Otimização de rotas LoRaWAN', 'Dissertação', 'Aborda algoritmos para melhorar a transmissão em redes LoRa.', 2021, NULL),
+(6, 1, 'Título 1', 'TCC', 'Resumo 1', 2025, pg_read_binary_file('pdf/TCC.pdf'));
 INSERT INTO PRODUCAO_EDITORA (id_editora, id_producao) VALUES
 (1, 1), (3, 2), (2, 3), (1, 4), (2, 5);
 
