@@ -50,16 +50,16 @@ def connectionSQL():
 # Implementação do menu
 def menu():
     print("-----------------------\n Menu (Acervo Digital) \n-----------------------")
-    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Consultar Tabelas (Pronto) \n5. Deletar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta em Linguagem Natural \n0. Sair")
+    print("1. Criar Tabelas (Pronto) \n2. Carregar Tabelas (Pronto) \n3. Atualizar Tabelas (Pronto) \n4. Consultar Tabelas (Pronto) \n5. Deletar Tabelas (Pronto) \n6. CRUD \n7. Inserção \n8. Atualização \n9. Exclusão \n10. Consulta de Tabela \n11. Consulta em Linguagem Natural \n0. Sair")
     opcao = int(input("Opção: "))
-    while (opcao > 10 or opcao < 0):
+    while (opcao > 11 or opcao < 0):
             opcao = int(input("Selecione uma opção válida: "))
     return opcao
 
 # Executa o comando (DDL) conforme o caminho do arquivo sql
 def executarSQL(connect, sqlCaminho):
     # Lê o script SQL completo
-    sql = Path(sqlCaminho).read_text(encoding="utf-8")
+    sql = Path(sqlCaminho).read_text(encoding="windows-1252")
     
     try:
         cursor = connect.cursor()
@@ -83,7 +83,7 @@ def executarSQL(connect, sqlCaminho):
 # Executa manipulações (DML) conforme o caminho do arquivo sql
 def consultarSQL(connect, sqlCaminho):
     # Lê o script SQL completo
-    sql = Path(sqlCaminho).read_text(encoding="utf-8")
+    sql = Path(sqlCaminho).read_text(encoding="windows-1252")
     
     try:
         cursor = connect.cursor()
@@ -132,7 +132,7 @@ def atualizarTabelas(connect):
 # Realiza consulta pré-definida
 def consultarTabelas(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "queries.sql"
-    sql = Path(sqlCaminho).read_text(encoding="utf-8")
+    sql = Path(sqlCaminho).read_text(encoding="windows-1252")
     consults = {}
 
     # Splita a query e itera sobre as consultas dentro do arquivo carregado atribuindo as declarações para consults
@@ -231,9 +231,13 @@ def inserir(connect):
         if str(tabela).upper() == tableName:
             for i, nomeColuna in enumerate(colunas):
                 atb = input(f"\nDigite o dado a ser inserido em {nomeColuna}: ")
-                atb = f"'{atb}'"
 
-                if(i == (len(colunas) - 1)):
+                if nomeColuna == 'arquivo':
+                    atb = f"pg_read_binary_file('pdf/{atb}.pdf')"
+                else:
+                    atb = f"'{atb}'"
+
+                if i == (len(colunas) - 1):
                     sql = sql + atb + ");"
                 else:
                     sql = sql + atb + ", "
@@ -291,9 +295,22 @@ def excluir(connect):
     sql = ''.join(query)
     varSQL(connect, sql)
 
+# Mostra a tabela selecionada
+def consultar(connect):
+    mostrarTabelas(connect)
+    
+    # Seleciona a tabela a ser excluida
+    tableName = input(str("\nSelecione uma tabela para mostrar: ")).upper()
+    select = "select * from " + tableName
+    resultado = varSQL(connect, select)
+    
+    # Printa o estado atual da tabela    
+    df = pd.DataFrame(resultado['linhas'], columns=resultado['colunas'])
+    print(df)
+
 def executarPipeline(connect, descricao):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
-    schema = Path(sqlCaminho).read_text(encoding="utf-8")
+    schema = Path(sqlCaminho).read_text(encoding="windows-1252")
     
     # Instancia a pipeline e executa
     pipeline = TextToSQLPipeline(connect)
@@ -337,6 +354,8 @@ def main():
                 case 9:
                     excluir(conn)
                 case 10:
+                    consultar(conn)
+                case 11:
                     consulta = input("\nDigite a consulta em linguagem natural: ")
                     executarPipeline(conn, consulta)
                 case 0:
