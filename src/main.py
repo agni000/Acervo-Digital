@@ -357,6 +357,7 @@ def main():
                     carregarTabelas(conn)
                     atualizarTabelas(conn)
                     consultarTabelas(conn)
+                    deletarTabelas(conn)
                 case 7:
                     inserir(conn)
                 case 8:
