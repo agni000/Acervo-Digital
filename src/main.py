@@ -127,6 +127,16 @@ def carregarTabelas(connect):
 def atualizarTabelas(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "update.sql"
     executarSQL(connect, sqlCaminho)
+
+    sql = Path(sqlCaminho).read_text(encoding="utf-8")
+    consults = {}
+
+    # Splita a query e itera sobre as consultas dentro do arquivo carregado atribuindo as declarações para consults
+    for i, stmt in enumerate(sqlparse.split(sql)):
+        if stmt.strip():
+            consults[i] = stmt
+            print(f"\n{i}. {consults[i]}")
+
     print("\nValores atualizados no banco!")
 
 # Realiza consulta pré-definida
@@ -299,7 +309,7 @@ def excluir(connect):
 def consultar(connect):
     mostrarTabelas(connect)
     
-    # Seleciona a tabela a ser excluida
+    # Seleciona a tabela a ser consultada
     tableName = input(str("\nSelecione uma tabela para mostrar: ")).upper()
     select = "select * from " + tableName
     resultado = varSQL(connect, select)
