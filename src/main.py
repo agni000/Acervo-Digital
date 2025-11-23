@@ -59,7 +59,7 @@ def menu():
 # Executa o comando (DDL) conforme o caminho do arquivo sql
 def executarSQL(connect, sqlCaminho):
     # Lê o script SQL completo
-    sql = Path(sqlCaminho).read_text(encoding="windows-1252")
+    sql = Path(sqlCaminho).read_text(encoding="utf-8")
     
     try:
         cursor = connect.cursor()
@@ -83,7 +83,7 @@ def executarSQL(connect, sqlCaminho):
 # Executa manipulações (DML) conforme o caminho do arquivo sql
 def consultarSQL(connect, sqlCaminho):
     # Lê o script SQL completo
-    sql = Path(sqlCaminho).read_text(encoding="windows-1252")
+    sql = Path(sqlCaminho).read_text(encoding="utf-8")
     
     try:
         cursor = connect.cursor()
@@ -132,7 +132,7 @@ def atualizarTabelas(connect):
 # Realiza consulta pré-definida
 def consultarTabelas(connect):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "queries.sql"
-    sql = Path(sqlCaminho).read_text(encoding="windows-1252")
+    sql = Path(sqlCaminho).read_text(encoding="utf-8")
     consults = {}
 
     # Splita a query e itera sobre as consultas dentro do arquivo carregado atribuindo as declarações para consults
@@ -205,7 +205,7 @@ def mostrarTabelas(connect):
 # Coloca o código SQL dentro do arquivo para chamar a função de DML
 def varSQL(connect, sql):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "variable.sql"
-    sqlCaminho.write_text(sql)
+    sqlCaminho.write_text(sql, encoding='utf-8')
     resultado = consultarSQL(connect, sqlCaminho)
 
     return resultado
@@ -310,7 +310,7 @@ def consultar(connect):
 
 def executarPipeline(connect, descricao):
     sqlCaminho = Path(__file__).parent.parent / "sql" / "schema.sql"
-    schema = Path(sqlCaminho).read_text(encoding="windows-1252")
+    schema = Path(sqlCaminho).read_text(encoding="utf-8")
     
     # Instancia a pipeline e executa
     pipeline = TextToSQLPipeline(connect)
