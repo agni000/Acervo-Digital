@@ -3,16 +3,16 @@
 
 ## Modelo Conceitual
 <div align="center">
-    <img src="docs/trabalhoFinalConceitual.png">
+    <img src="docs/conceitual.png">
 </div>
 
 ---
 
 ## Modelo Lógico
 <div align="center">
-    <img src="docs/trabalhoFinalLogico.png">
+    <img src="docs/logico.png">
 </div>
 
 ---
 
-[Requisitos completos do trabalho (PDF)](docs/descricaoProjeto.pdf)
+[Requisitos completos do trabalho (PDF)](docs/DEC7129-Trabalho-Final.pdf)
