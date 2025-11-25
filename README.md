@@ -7,6 +7,7 @@
     <img src = "assets/trabFinalConceitual.png"  width="600" height="350" align = center>
   </p>
 </div>
+
 ---
 
 ## Modelo Lógico
