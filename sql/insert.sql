@@ -16,7 +16,6 @@ INSERT INTO PROJETO_DE_PESQUISA (id_projeto_pesq, titulo, descricao) VALUES
 (7, 'Aplicações de Transfer Learning em Biomecânica', 'Uso de transfer learning para análise de movimento com poucos dados rotulados.'),
 (8, 'Sistema de Telemetria para Monitoramento Bovino', 'Desenvolvimento de plataforma integrada de telemetria e análise de dados para pecuária.');
 
-
 INSERT INTO PRODUCAO (id_producao, id_projeto_pesq, titulo, tipo, resumo, ano, arquivo) VALUES
 (1, 1, 'Classificação de padrões respiratórios usando CNNs', 'Artigo', 'Apresenta uma CNN capaz de diferenciar padrões respiratórios em sinais biomédicos.', 2023, NULL),
 (2, 1, 'TCC - Sistema embarcado para análise de ar', 'TCC', 'Trabalho de conclusão envolvendo microcontroladores e sensores de ar.', 2022, NULL),
@@ -39,8 +38,23 @@ INSERT INTO PRODUCAO (id_producao, id_projeto_pesq, titulo, tipo, resumo, ano, a
 (19, 1, 'Título 4', 'Tese', 'Resumo 4', 2025, pg_read_binary_file('pdf/TESE.pdf')),
 (20, 1, 'Título 5', 'Dissertação', 'Resumo 5', 2025, pg_read_binary_file('pdf/DISSERTACAO.pdf'));
 
-INSERT INTO PRODUCAO_EDITORA (id_editora, id_producao) VALUES
-(1, 1), (3, 2), (2, 3), (1, 4), (2, 5), (4, 6), (3, 7), (1, 8), (5, 9), (5, 15), (6, 10), (1, 11), (4, 12), (2, 13), (3, 14), (4, 16);
+INSERT INTO PUBLICACAO (id_editora, id_producao, ISSN, fatorImpacto) VALUES
+(1, 1,  '1000-0001', 2.500),
+(3, 2,  '3000-0003', 3.100),
+(2, 3,  '2000-0002', 1.850),
+(1, 4,  '1000-0001', 2.550),
+(2, 5,  '2000-0002', 1.850),
+(4, 6,  '4000-0004', 0.950),
+(3, 7,  '3000-0003', 3.200),
+(1, 8,  '1000-0001', 2.500),
+(5, 9,  '5000-0005', 5.200),
+(5, 15, '5000-0005', 5.200),
+(6, 10, '6000-0006', 1.100),
+(1, 11, '1000-0001', 2.500),
+(4, 12, '4000-0004', 0.950),
+(2, 13, '2000-0002', 1.900),
+(3, 14, '3000-0003', 3.100),
+(4, 16, '4000-0004', 0.950);
 
 INSERT INTO REFERENCIA (id_producao_referente, id_producao_referenciada) VALUES
 (1, 2), (3, 1), (4, 1), (5, 3), (8, 1), (9, 1), (10, 3), (11, 4), (12, 5), (13, 1), (15, 9), (16, 5);
