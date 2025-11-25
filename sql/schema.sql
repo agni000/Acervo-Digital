@@ -21,12 +21,15 @@ CREATE TABLE PRODUCAO (
 	CHECK (tipo IN ('TCC', 'Dissertação', 'Artigo', 'Tese'))
 );
 
-CREATE TABLE PRODUCAO_EDITORA (
+CREATE TABLE PUBLICACAO (
 	id_editora INTEGER NOT NULL, 
 	id_producao INTEGER NOT NULL,
+	ISSN VARCHAR(8) NOT NULL,
+	fatorImpacto NUMERIC(5, 3),
 	PRIMARY KEY (id_editora, id_producao),
 	FOREIGN KEY (id_editora) REFERENCES EDITORA (id_editora),
-	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao)
+	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao),
+	UNIQUE (ISSN)
 );
 
 CREATE TABLE REFERENCIA (
@@ -49,7 +52,7 @@ CREATE TABLE FINANCIAMENTO (
 	id_projeto_pesq INTEGER NOT NULL, 
 	valor INTEGER NOT NULL, 
 	data_financiamento DATE NOT NULL,
-	PRIMARY KEY (id_financiador, id_projeto_pesq),
+	PRIMARY KEY (id_financiador, id_projeto_pesq, data_financiamento),
 	FOREIGN KEY (id_financiador) REFERENCES FINANCIADOR (id_financiador),
 	FOREIGN KEY (id_projeto_pesq) REFERENCES PROJETO_DE_PESQUISA (id_projeto_pesq)
 );
