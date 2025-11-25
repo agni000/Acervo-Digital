@@ -3,12 +3,16 @@
 
 ## Modelo Conceitual
 <div align="center">
-    <img src="assets/Conceitual.png">
+    <img src="assets/trabFinalConceitual.png">
 </div>
 
 ---
 
 ## Modelo Lógico
+
+<div align="center">
+    <img src="assets/trabFinalLogico.png">
+</div>
 
 ```mermaid
 %%{init: {'theme':'forest',
