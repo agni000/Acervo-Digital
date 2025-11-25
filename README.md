@@ -11,14 +11,14 @@
 ## Modelo Lógico
 
 ```mermaid
-%%{init: {
-    'theme': 'base',
+%%{init: {'theme':'forest',
     'themeVariables': {
-        'background': '#FFFFFF',
         'primaryColor': '#2E5A88',
         'primaryBorderColor': '#1B3C5D',
         'primaryTextColor': '#FFFFFF',
-        'lineColor': '#2E5A88'
+        'lineColor': '#A2B9E0',
+        'secondaryColor': '#375F8A',
+        'tertiaryColor': '#1F3A5F'
     }
 }}%%
 
