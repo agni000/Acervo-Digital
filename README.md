@@ -9,9 +9,6 @@
 ---
 
 ## Modelo Lógico
-<div align="center">
-    <img src="assets/MD-Logico.png">
-</div>
 
 ```mermaid
 %%{init: {'theme':'forest',
