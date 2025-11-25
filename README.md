@@ -3,14 +3,14 @@
 
 ## Modelo Conceitual
 <div align="center">
-    <img src="assets/conceitual.png">
+    <img src="assets/MD-Conceitual.png">
 </div>
 
 ---
 
 ## Modelo Lógico
 <div align="center">
-    <img src="assets/logico.png">
+    <img src="assets/MD-Logico.png">
 </div>
 
 ---
