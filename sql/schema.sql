@@ -28,8 +28,7 @@ CREATE TABLE PUBLICACAO (
 	fatorImpacto NUMERIC(5, 3),
 	PRIMARY KEY (id_editora, id_producao),
 	FOREIGN KEY (id_editora) REFERENCES EDITORA (id_editora),
-	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao),
-	UNIQUE (ISSN)
+	FOREIGN KEY (id_producao) REFERENCES PRODUCAO (id_producao)
 );
 
 CREATE TABLE REFERENCIA (
