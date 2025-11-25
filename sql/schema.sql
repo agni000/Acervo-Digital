@@ -24,7 +24,7 @@ CREATE TABLE PRODUCAO (
 CREATE TABLE PUBLICACAO (
 	id_editora INTEGER NOT NULL, 
 	id_producao INTEGER NOT NULL,
-	ISSN VARCHAR(8) NOT NULL,
+	ISSN VARCHAR(9) NOT NULL,
 	fatorImpacto NUMERIC(5, 3),
 	PRIMARY KEY (id_editora, id_producao),
 	FOREIGN KEY (id_editora) REFERENCES EDITORA (id_editora),
