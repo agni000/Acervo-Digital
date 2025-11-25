@@ -3,7 +3,7 @@
 
 ## Modelo Conceitual
 <div align="center">
-    <img src="assets/MD-Conceitual.png">
+    <img src="assets/Conceitual.png">
 </div>
 
 ---
