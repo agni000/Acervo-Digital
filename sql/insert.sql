@@ -1,10 +1,10 @@
-INSERT INTO EDITORA (id_editora, nome, tipo, fator_impacto, ISBN) VALUES
-(1, 'Springer Nature', 1, 4.523, '978-3-16-148410-0'),
-(2, 'Elsevier', 1, 5.321, '978-0-12-374856-0'),
-(3, 'SciELO Brasil', 2, 2.115, '978-85-359-0277-7'),
-(4, 'Editora IME', 2, 3.115, '978-25-256-557-7'),
-(5, 'IEEE Press', 1, 6.127, '978-0-07-059348-6'),
-(6, 'ACM Books', 1, 5.890, '978-1-4503-1234-5');
+INSERT INTO EDITORA (id_editora, nome) VALUES
+(1, 'Springer Nature'),
+(2, 'Elsevier'),
+(3, 'SciELO Brasil'),
+(4, 'Editora IME'),
+(5, 'IEEE Press'),
+(6, 'ACM Books');
 
 INSERT INTO PROJETO_DE_PESQUISA (id_projeto_pesq, titulo, descricao) VALUES
 (1, 'Detecção Inteligente de Doenças Respiratórias', 'Projeto utilizando IA e sensores biomédicos para diagnóstico precoce.'),

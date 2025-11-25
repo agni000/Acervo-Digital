@@ -10,6 +10,3 @@ UPDATE FINANCIAMENTO
 SET valor = valor + 10000
 WHERE id_financiador = 1 AND id_projeto_pesq = 1;
 
-UPDATE EDITORA
-SET fator_impacto = 4.850
-WHERE id_editora = 1;
