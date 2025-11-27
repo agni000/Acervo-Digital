@@ -4,7 +4,7 @@
 ## Modelo Conceitual
 <div align="center">
   </p>
-    <img src = "assets/trabFinalConceitual.png"  width="600" height="350" align = center>
+    <img src = "assets/trabFinalConceitual.png" align = center>
   </p>
 </div>
 
@@ -13,7 +13,7 @@
 ## Modelo Lógico
 <div align="center">
   </p>
-    <img src = "assets/trabFinalLogico.png"  width="600" height="350" align = center>
+    <img src = "assets/trabFinalLogico.png" align = center>
   </p>
 </div>
 
